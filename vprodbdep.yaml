@@ -18,7 +18,7 @@ spec:
         - name: vprodb  # container name, you can give any name
           image: mallickasad/vprofiledb:V1    # image to be downloaded from github repo
           args:
-            - "ignore-db-dir=lost+found"  # when volume is formatted it creates a lost and found file in the volume
+            - "--ignore-db-dir=lost+found"  # when volume is formatted it creates a lost and found file in the volume
           volumeMounts:                   # and if volumemounts find that folder is not empty, it will throw error, so
             - mountPath: /var/lib/mysql   # to ignore that error we give the ignore argument in the container
               name: vpro-db-data # volume name we have given in the Volumes block below
