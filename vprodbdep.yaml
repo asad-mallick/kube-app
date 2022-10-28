@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+  labels:
+    app: vprodb
+spec:
+  selector:
+    matchLabels:
+      app: vprodb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vprodb
+    spec:
+      containers:
+        - name: vprodb  # container name, you can give any name
+          image: mallickasad/vprofiledb:V1    # image to be downloaded from github repo
+          args:
+            - "ignore-db-dir=lost+found"  # when volume is formatted it creates a lost and found file in the volume
+          volumeMounts:                   # and if volumemounts find that folder is not empty, it will throw error, so
+            - mountPath: /var/lib/mysql   # to ignore that error we give the ignore argument in the container
+              name: vpro-db-data # volume name we have given in the Volumes block below
+          ports:
+            - name: vprodb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD # SQL environment to pass the ROOT password
+              valueFrom:        # from where it will fetch the password
+                secretKeyRef:   # it will fetch password from secret key
+                  name: app-secret  # name of the file where secret key is stored
+                  key: db-pass      # variable where password is stored in the file
+      nodeSelector:
+        zone: us-east-1b   # we labeled the zones earlier to ensure that our db pods run on the same zone as our EBS volume
+      volumes:
+        - name: vpro-db-data # this name will be used in the volume mount section above
+          awsElasticBlockStore:
+            volumeID: vol-0a4698b2602418dd5
+            fsType: ext4
+        # we have to tag the EBS volume and give our cluster name to it, otherwise pod will not attach to the
+        # EBS volume and throw permission denied error. so goto EBS volume from console and give the cluster name
+        # in the tag, which in this case is vprokube.asadmallick.co.in and Name should be KubernetesCluster
