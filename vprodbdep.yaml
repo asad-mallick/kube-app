@@ -32,7 +32,7 @@ spec:
                   name: app-secret  # name of the file where secret key is stored
                   key: db-pass      # variable where password is stored in the file
       nodeSelector:
-        zone: us-east-1b   # we labeled the zones earlier to ensure that our db pods run on the same zone as our EBS volume
+        zone: us-east-1a   # we labeled the zones earlier to ensure that our db pods run on the same zone as our EBS volume
       volumes:
         - name: vpro-db-data # this name will be used in the volume mount section above
           awsElasticBlockStore:
