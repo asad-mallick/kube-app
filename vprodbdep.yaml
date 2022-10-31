@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: vprodb  # container name, you can give any name
-          image: mallickasad/vprofiledb:V1    # image to be downloaded from github repo
+          image: mallickasad/vprofiledb:V1    # image to be downloaded from dockerhub repo
           args:
             - "--ignore-db-dir=lost+found"  # when volume is formatted it creates a lost and found file in the volume
           volumeMounts:                   # and if volumemounts find that folder is not empty, it will throw error, so
