@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: vprodb
+        app: vprodb # pod label
     spec:
       containers:
         - name: vprodb  # container name, you can give any name
