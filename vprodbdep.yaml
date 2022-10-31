@@ -40,4 +40,4 @@ spec:
             fsType: ext4
         # we have to tag the EBS volume and give our cluster name to it, otherwise pod will not attach to the
         # EBS volume and throw permission denied error. so goto EBS volume from console and give the cluster name
-        # in the tag, which in this case is vprokube.asadmallick.co.in and Name should be KubernetesCluster
+        # in the tag, which in this case is kubevpro.asadmallick.co.in and Name should be KubernetesCluster
