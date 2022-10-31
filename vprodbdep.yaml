@@ -36,7 +36,7 @@ spec:
       volumes:
         - name: vpro-db-data # this name will be used in the volume mount section above
           awsElasticBlockStore:
-            volumeID: vol-0a4698b2602418dd5
+            volumeID: vol-0f2be58c1f8913ac7
             fsType: ext4
         # we have to tag the EBS volume and give our cluster name to it, otherwise pod will not attach to the
         # EBS volume and throw permission denied error. so goto EBS volume from console and give the cluster name
